@@ -8,6 +8,7 @@ import LetsTalkButton from "@/components/buttons/LetsTalkButton";
 export default function AboutSection() {
   return (
     <section
+      id="about"
       className="
         relative
         w-full

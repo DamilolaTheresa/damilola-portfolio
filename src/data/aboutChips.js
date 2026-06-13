@@ -8,7 +8,7 @@ export const aboutChips = [
     color: "#89B5FF",
   },
   {
-    label: "Fintech",
+    label: "CRO",
     color: "#FF855A",
   },
   {
@@ -44,7 +44,7 @@ export const aboutChips = [
     color: "#EAF37C",
   },
   {
-    label: "Remote",
+    label: "SEO",
     color: "#89B5FF",
   },
 ];

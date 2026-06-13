@@ -11,6 +11,29 @@ export default function MobileMenu({
   setActiveLink,
   handleCloseMenu,
 }) {
+  const handleNavigation = (item) => {
+    setActiveLink(item.id);
+
+    if (item.id === "resume") {
+      window.open("/resume.pdf", "_blank");
+      handleCloseMenu();
+      return;
+    }
+
+    const section = document.getElementById(
+      item.id
+    );
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+
+    handleCloseMenu();
+  };
+
   return (
     <div
       className="fixed inset-0 z-[100] md:hidden"
@@ -22,7 +45,11 @@ export default function MobileMenu({
         className="fixed top-0 left-0 h-[26vh] w-full bg-[#0F0F0F]"
       >
         {/* Portrait */}
-        <div ref={portraitRef} className="absolute left-4 top-6">
+
+        <div
+          ref={portraitRef}
+          className="absolute left-4 top-6"
+        >
           <div className="relative h-10 w-10 p-[0.125rem] bg-[#D9D9D9] rounded-[0.25rem] shadow-[0_0.25rem_2rem_0_rgba(0,0,0,0.10)]">
             <div className="relative h-full w-full overflow-hidden rounded-[0.09375rem]">
               <Image
@@ -37,6 +64,7 @@ export default function MobileMenu({
         </div>
 
         {/* Back Button */}
+
         <button
           ref={backRef}
           onClick={handleCloseMenu}
@@ -52,6 +80,7 @@ export default function MobileMenu({
         </button>
 
         {/* Mobile Nav */}
+
         <div
           className="
             absolute
@@ -66,10 +95,9 @@ export default function MobileMenu({
           {navigationLinks.map((item) => (
             <button
               key={item.id}
-              onClick={() => {
-                setActiveLink(item.id);
-                handleCloseMenu();
-              }}
+              onClick={() =>
+                handleNavigation(item)
+              }
               className="
                 mobile-nav-item
                 flex

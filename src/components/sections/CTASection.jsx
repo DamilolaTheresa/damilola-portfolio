@@ -25,6 +25,7 @@ export default function CTASection() {
 
   return (
     <section
+      id="contact"
       className="
         w-full
         bg-[#ECECEC]

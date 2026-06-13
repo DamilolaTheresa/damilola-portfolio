@@ -2,6 +2,12 @@ import "./globals.css";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 
+export const metadata = {
+  title: "Damilola Akinwande",
+  description:
+    "Design Engineer, Product Designer & Frontend Engineer creating intuitive digital experiences.",
+};
+
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
@@ -33,10 +39,14 @@ const sfMono = localFont({
   variable: "--font-sfmono",
 });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} ${sfMono.variable}`}>
+      <body
+        className={`${geist.variable} ${sfMono.variable}`}
+      >
         {children}
       </body>
     </html>

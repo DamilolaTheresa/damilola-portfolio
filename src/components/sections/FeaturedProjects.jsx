@@ -11,6 +11,7 @@ export default function FeaturedProjects() {
 
   return (
     <section
+      id="works"
       className="
         relative
         w-full

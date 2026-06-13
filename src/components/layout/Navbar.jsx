@@ -12,9 +12,14 @@ import {
 } from "@/animations/mobileMenuAnimation";
 
 export default function Navbar() {
-  const [activeLink, setActiveLink] = useState("home");
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeLink, setActiveLink] =
+    useState("home");
+
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
+  const [isScrolled, setIsScrolled] =
+    useState(false);
 
   const menuRef = useRef(null);
   const backRef = useRef(null);
@@ -27,12 +32,40 @@ export default function Navbar() {
     });
   };
 
+  const handleNavigation = (item) => {
+    setActiveLink(item.id);
+
+    if (item.id === "resume") {
+      window.open(
+        "/resume.pdf",
+        "_blank"
+      );
+
+      return;
+    }
+
+    const section =
+      document.getElementById(item.id);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(
+        window.scrollY > 10
+      );
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
 
     return () => {
       window.removeEventListener(
@@ -54,7 +87,8 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Juan Mora Style Scroll Blur */}
+      {/* Scroll Blur */}
+
       <div
         className={`
           fixed
@@ -74,7 +108,8 @@ export default function Navbar() {
         `}
         style={{
           backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
+          WebkitBackdropFilter:
+            "blur(4px)",
           maskImage:
             "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
           WebkitMaskImage:
@@ -82,12 +117,54 @@ export default function Navbar() {
         }}
       />
 
-      <nav className="fixed top-0 left-0 z-50 w-full px-4 py-6 md:px-12 lg:px-14 md:py-8">
-        <div className="flex items-start justify-between">
-
+      <nav
+        className="
+          fixed
+          top-0
+          left-0
+          z-50
+          w-full
+          px-4
+          py-6
+          md:px-12
+          md:py-8
+          lg:px-14
+        "
+      >
+        <div
+          className="
+            flex
+            items-start
+            justify-between
+          "
+        >
           {/* Portrait */}
-          <div className="relative h-10 w-10 md:h-14 md:w-14 p-[0.125rem] md:p-[0.15625rem] bg-[#D9D9D9] rounded-[0.25rem] md:rounded-[0.375rem] shadow-[0_0.25rem_2rem_0_rgba(0,0,0,0.10)]">
-            <div className="relative h-full w-full overflow-hidden rounded-[0.09375rem] md:rounded-[0.14375rem]">
+
+          <div
+            className="
+              relative
+              h-10
+              w-10
+              md:h-14
+              md:w-14
+              p-[0.125rem]
+              md:p-[0.15625rem]
+              bg-[#D9D9D9]
+              rounded-[0.25rem]
+              md:rounded-[0.375rem]
+              shadow-[0_0.25rem_2rem_0_rgba(0,0,0,0.10)]
+            "
+          >
+            <div
+              className="
+                relative
+                h-full
+                w-full
+                overflow-hidden
+                rounded-[0.09375rem]
+                md:rounded-[0.14375rem]
+              "
+            >
               <Image
                 src="/images/hero/navimage.png"
                 alt="Damilola Akinwande"
@@ -99,59 +176,91 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex flex-col items-end gap-4">
-            {navigationLinks.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveLink(item.id)}
-                className="group flex items-start gap-[0.5rem]"
-              >
-                <span
-                  onMouseEnter={(e) => {
-                    if (activeLink === item.id) return;
 
-                    scrambleText(
-                      e.currentTarget,
-                      item.label
-                    );
-                  }}
-                  className={`
-                    font-[family-name:var(--font-sfmono)]
-                    font-normal
-                    text-[0.75rem]
-                    uppercase
-                    transition-all
-                    ${
-                      activeLink === item.id
-                        ? "text-[#262626]"
-                        : "text-[#767676]"
-                    }
-                  `}
+          <div
+            className="
+              hidden
+              md:flex
+              flex-col
+              items-end
+              gap-4
+            "
+          >
+            {navigationLinks.map(
+              (item) => (
+                <button
+                  key={item.id}
+                  onClick={() =>
+                    handleNavigation(
+                      item
+                    )
+                  }
+                  className="
+                    group
+                    flex
+                    items-start
+                    gap-[0.5rem]
+                  "
                 >
-                  {activeLink === item.id
-                    ? `[ ${item.label} ]`
-                    : item.label}
-                </span>
+                  <span
+                    onMouseEnter={(
+                      e
+                    ) => {
+                      if (
+                        activeLink ===
+                        item.id
+                      )
+                        return;
 
-                <span
-                  className={`
-                    size-[0.5625rem]
-                    mt-[0.15rem]
-                    transition-all
-                    ${
-                      activeLink === item.id
-                        ? "bg-[#F50084]"
-                        : "bg-transparent"
-                    }
-                  `}
-                />
-              </button>
-            ))}
+                      scrambleText(
+                        e.currentTarget,
+                        item.label
+                      );
+                    }}
+                    className={`
+                      font-[family-name:var(--font-sfmono)]
+                      font-normal
+                      text-[0.75rem]
+                      uppercase
+                      transition-all
+                      ${
+                        activeLink ===
+                        item.id
+                          ? "text-[#262626]"
+                          : "text-[#767676]"
+                      }
+                    `}
+                  >
+                    {activeLink ===
+                    item.id
+                      ? `[ ${item.label} ]`
+                      : item.label}
+                  </span>
+
+                  <span
+                    className={`
+                      size-[0.5625rem]
+                      mt-[0.15rem]
+                      transition-all
+                      ${
+                        activeLink ===
+                        item.id
+                          ? "bg-[#F50084]"
+                          : "bg-transparent"
+                      }
+                    `}
+                  />
+                </button>
+              )
+            )}
           </div>
 
           {/* Mobile Menu Button */}
+
           <button
-            onClick={() => setMenuOpen(true)}
+            onClick={() =>
+              setMenuOpen(true)
+            }
             className="md:hidden"
           >
             <svg
@@ -166,6 +275,7 @@ export default function Navbar() {
                 strokeWidth="1.75"
                 strokeLinecap="round"
               />
+
               <path
                 d="M4 16H20"
                 stroke="#262626"
@@ -177,7 +287,8 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
+
       {menuOpen && (
         <MobileMenu
           menuRef={menuRef}
@@ -185,7 +296,9 @@ export default function Navbar() {
           backRef={backRef}
           activeLink={activeLink}
           setActiveLink={setActiveLink}
-          handleCloseMenu={handleCloseMenu}
+          handleCloseMenu={
+            handleCloseMenu
+          }
         />
       )}
     </>
